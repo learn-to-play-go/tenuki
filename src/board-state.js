@@ -43,10 +43,10 @@ BoardState.prototype = {
     return utils.unique(capturedStones);
   },
 
-  _updateIntersection: function(intersection, intersections, color) {
+  _updateIntersection: function(intersection, intersections, color, label) {
     return intersections.map(i => {
       if (i.y === intersection.y && i.x === intersection.x) {
-        return new Intersection(i.y, i.x, color);
+        return new Intersection(i.y, i.x, color, label);
       } else {
         return i;
       }
@@ -126,6 +126,13 @@ BoardState.prototype = {
     }
 
     return simpleKoPoint;
+  },
+
+  labelAt: function(y, x, label) {
+    let intersection = this.intersectionAt(y, x);
+    let newPoints = this.intersections;
+    newPoints = this._updateIntersection(intersection, newPoints, this.playedColor, label);
+    return this._withNewPoints(newPoints);
   },
 
   playAt: function(y, x, playedColor) {

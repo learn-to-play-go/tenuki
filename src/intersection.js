@@ -1,7 +1,8 @@
-const Intersection = function(y, x, value) {
+const Intersection = function(y, x, value, label) {
   this.y = y;
   this.x = x;
   this.value = value || "empty";
+  this.label = label || "empty";
 
   Object.freeze(this);
 };
@@ -13,6 +14,14 @@ Intersection.prototype = {
     }
 
     return this.value === color;
+  },
+
+  hasLabel: function() {
+    return this.label !== "empty";
+  },
+
+  getLabel: function() {
+    return this.label;
   },
 
   isBlack: function() {

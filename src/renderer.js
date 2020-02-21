@@ -533,6 +533,10 @@ Renderer.prototype = {
 
     let classes = ["intersection"];
 
+    if (intersection.hasLabel()) {
+      classes.push(intersection.getLabel());
+    }
+
     if (intersection.isEmpty()) {
       classes.push("empty");
     } else {
