@@ -188,6 +188,11 @@ Game.prototype = {
     return this.currentState().moveNumber;
   },
 
+  labelAt: function(y, x, label) {
+    this.currentState().labelAt(y, x, label);
+    return true;
+  },
+
   playAt: function(y, x, { render = true } = {}) {
     if (this.isIllegalAt(y, x)) {
       return false;
