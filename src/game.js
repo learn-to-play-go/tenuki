@@ -26,7 +26,7 @@ const Game = function(options = {}) {
   this._moves = [];
   this.callbacks = {
     postRender: function() {},
-    postMove: function() {} // arg: is a pass
+    postMove: function() {} // arg: currentPlayer, isPass
   };
   this._boardElement = options["element"];
   this._defaultScoring = "territory";
@@ -193,7 +193,9 @@ Game.prototype = {
       return false;
     }
 
-    let newState = this.currentState().playAt(y, x, this.currentPlayer());
+    const currentPlayer = this.currentPlayer();
+
+    let newState = this.currentState().playAt(y, x, currentPlayer);
     const { koPoint } = newState;
 
     if (koPoint && !this._ruleset._isKoViolation(koPoint.y, koPoint.x, newState, this._moves.concat(newState))) {
@@ -201,7 +203,7 @@ Game.prototype = {
     }
 
     this._moves.push(newState);
-    this.callbacks.postMove(this, false);
+    this.callbacks.postMove(this, currentPlayer, false);
 
     if (render) {
       this.render();
@@ -215,9 +217,11 @@ Game.prototype = {
       return false;
     }
 
-    const newState = this.currentState().playPass(this.currentPlayer());
+    const currentPlayer = this.currentPlayer();
+
+    const newState = this.currentState().playPass(currentPlayer);
     this._moves.push(newState);
-    this.callbacks.postMove(this, true);
+    this.callbacks.postMove(this, currentPlayer, true);
 
     if (render) {
       this.render();
