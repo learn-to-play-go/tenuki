@@ -25,7 +25,8 @@ const Game = function(options = {}) {
   this.boardSize = null;
   this._moves = [];
   this.callbacks = {
-    postRender: function() {}
+    postRender: function() {},
+    postMove: function() {} // arg: is a pass
   };
   this._boardElement = options["element"];
   this._defaultScoring = "territory";
@@ -200,6 +201,7 @@ Game.prototype = {
     }
 
     this._moves.push(newState);
+    this.callbacks.postMove(this, false);
 
     if (render) {
       this.render();
@@ -215,6 +217,7 @@ Game.prototype = {
 
     const newState = this.currentState().playPass(this.currentPlayer());
     this._moves.push(newState);
+    this.callbacks.postMove(this, true);
 
     if (render) {
       this.render();
