@@ -190,6 +190,7 @@ Game.prototype = {
 
   labelAt: function(y, x, label) {
     this.currentState().labelAt(y, x, label);
+    this.render();
     return true;
   },
 

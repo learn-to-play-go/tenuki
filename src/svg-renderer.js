@@ -245,10 +245,7 @@ const constructSVG = function(renderer, boardState, { hasCoordinates, smallerSto
       utils.appendElement(intersectionInnerContainer, utils.createSVGElement("polygon", {
         attributes: {
           class: "triangle",
-          y: y * (renderer.INTERSECTION_GAP_SIZE + 1) - 6,
-          x: x * (renderer.INTERSECTION_GAP_SIZE + 1) - 6,
-          width: 12,
-          height: 12
+          points: "8,0 12,12 0,12"
         }
       }));
 
