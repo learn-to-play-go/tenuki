@@ -312,6 +312,11 @@ Game.prototype = {
     this.render();
   },
 
+  clear: function() {
+    this._moves = [];
+    this.render();
+  },
+
   render: function() {
     if (!this.isOver()) {
       this._deadPoints = [];
