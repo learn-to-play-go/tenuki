@@ -244,12 +244,53 @@ const constructSVG = function(renderer, boardState, { hasCoordinates, smallerSto
 
       utils.appendElement(intersectionInnerContainer, utils.createSVGElement("circle", {
         attributes: {
-          class: "circle",
+          class: "circle-label",
           cy: y * (renderer.INTERSECTION_GAP_SIZE + 1) - 0.5,
           cx: x * (renderer.INTERSECTION_GAP_SIZE + 1) - 0.5,
-          r: 4.5
+          r: 8
         }
       }));
+
+      utils.appendElement(intersectionInnerContainer, utils.createSVGElement("rect", {
+        attributes: {
+          class: "square-label",
+          y: y * (renderer.INTERSECTION_GAP_SIZE + 1) - 6,
+          x: x * (renderer.INTERSECTION_GAP_SIZE + 1) - 6,
+          width: 11,
+          height: 11
+        }
+      }));
+
+      const pos = {
+        x: y * renderer.INTERSECTION_GAP_SIZE + 1.5 - 1,
+        y: x * renderer.INTERSECTION_GAP_SIZE + 1.5 - 2,
+        w: 8 - 1,
+        h: 8 - 1
+      };
+
+      utils.appendElement(intersectionInnerContainer, utils.createSVGElement("polygon", {
+        attributes: {
+          class: "triangle-label",
+          points: String(
+            pos.x + "," + (pos.y - pos.h) + " " +
+            (pos.x - pos.w) + "," + (pos.y + pos.h) + " " +
+            (pos.x + pos.w) + "," + (pos.y + pos.h)
+          )
+        }
+      }));
+
+      const letters = ['a', 'b', 'c'];
+
+      for (let i = 0; i < letters.length; ++i) {
+        utils.appendElement(intersectionInnerContainer, utils.createSVGElement("text", {
+          attributes: {
+            class: letters[i] + "-label",
+            y: y * (renderer.INTERSECTION_GAP_SIZE + 1) + 4,
+            x: x * (renderer.INTERSECTION_GAP_SIZE + 1) - 5,
+          },
+          text: letters[i].toUpperCase()
+        }));
+      }
 
       renderer.grid[y] = renderer.grid[y] || [];
       renderer.grid[y][x] = intersectionGroup;

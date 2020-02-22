@@ -436,9 +436,9 @@ Renderer.prototype = {
 
     this.renderStonesPlayed(boardState.intersections);
 
-    const playedPoint = boardState.playedPoint;
+    const playedPoint = boardState.hidePlayedPoint ? null : boardState.playedPoint;
 
-    this.updateMarkerPoints({ playedPoint: playedPoint, koPoint: boardState.koPoint, labelPoint: boardState.labelPoint });
+    this.updateMarkerPoints({ playedPoint: playedPoint, koPoint: boardState.koPoint, labelPoint: boardState.labelPoint, labelType: boardState.labelType });
 
     if (this._options["fuzzyStonePlacement"] && playedPoint) {
       const verticalShiftClasses = [
@@ -514,7 +514,7 @@ Renderer.prototype = {
     });
   },
 
-  updateMarkerPoints: function({ playedPoint, koPoint, labelPoint }) {
+  updateMarkerPoints: function({ playedPoint, koPoint, labelPoint, labelType }) {
     const renderer = this;
 
     if (koPoint) {
@@ -526,7 +526,7 @@ Renderer.prototype = {
     }
 
     if (labelPoint) {
-      utils.addClass(renderer.grid[labelPoint.y][labelPoint.x], "label");
+      utils.addClass(renderer.grid[labelPoint.y][labelPoint.x], labelType);
     }
   },
 

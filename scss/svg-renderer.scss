@@ -71,7 +71,13 @@ $board-darker-color: hsl(41, 36%, 40%);
 
   &.tenuki-board .intersection .marker,
   &.tenuki-board .intersection .ko-marker,
-  &.tenuki-board .intersection .territory-marker {
+  &.tenuki-board .intersection .territory-marker,
+  &.tenuki-board .intersection .a-label,
+  &.tenuki-board .intersection .b-label,
+  &.tenuki-board .intersection .c-label,
+  &.tenuki-board .intersection .triangle-label,
+  &.tenuki-board .intersection .circle-label,
+  &.tenuki-board .intersection .square-label {
     visibility: hidden;
   }
 
@@ -87,8 +93,76 @@ $board-darker-color: hsl(41, 36%, 40%);
     stroke: black;
   }
 
-  &.tenuki-board .intersection.ko .circle {
+  &.tenuki-board .intersection.a .a-label {
     fill: black;
+  }
+
+  &.tenuki-board .intersection.b .b-label {
+    fill: black;
+  }
+
+  &.tenuki-board .intersection.c .c-label {
+    fill: black;
+  }
+
+  &.tenuki-board .intersection.triangle .triangle-label {
+    stroke: black;
+  }
+
+  &.tenuki-board .intersection.square .square-label {
+    stroke: black;
+  }
+
+  &.tenuki-board .intersection.circle .circle-label {
+    stroke: black;
+  }
+
+  &.tenuki-board .intersection.circle.white .circle-label {
+    stroke: black;
+  }
+
+  &.tenuki-board .intersection.square.white .square-label {
+    stroke: black;
+  }
+
+  &.tenuki-board .intersection.triangle.white .triangle-label {
+    stroke: black;
+  }
+
+  &.tenuki-board .intersection.a.white .a-label {
+    fill: black;
+  }
+
+  &.tenuki-board .intersection.b.white .b-label {
+    fill: black;
+  }
+
+  &.tenuki-board .intersection.c.white .c-label {
+    fill: black;
+  }
+
+  &.tenuki-board .intersection.c.black .c-label {
+    fill: white;
+  }
+
+  &.tenuki-board .intersection.b.black .b-label {
+    fill: white;
+  }
+
+  &.tenuki-board .intersection.a.black .a-label {
+    fill: white;
+  }
+
+  &.tenuki-board .intersection.triangle.black .triangle-label {
+    stroke: white;
+  }
+
+  &.tenuki-board .intersection.square.black .square-label {
+    stroke: white;
+  }
+
+  &.tenuki-board .intersection.circle.black .circle-label {
+    stroke: white;
   }
 
   &.tenuki-board .intersection.territory-black .territory-marker {
@@ -103,7 +177,12 @@ $board-darker-color: hsl(41, 36%, 40%);
   &.tenuki-board .intersection.territory-white .territory-marker,
   &.tenuki-board .intersection.ko .ko-marker,
   &.tenuki-board .intersection.played .marker,
-  &.tenuki-board .intersection.label {
+  &.tenuki-board .intersection.a .a-label,
+  &.tenuki-board .intersection.b .b-label,
+  &.tenuki-board .intersection.c .c-label,
+  &.tenuki-board .intersection.triangle .triangle-label,
+  &.tenuki-board .intersection.circle .circle-label,
+  &.tenuki-board .intersection.square .square-label {
     visibility: visible;
   }
 
@@ -120,11 +199,11 @@ $board-darker-color: hsl(41, 36%, 40%);
 
   &.tenuki-board-nonflat .intersection.black .stone-shadow,
   &.tenuki-board-nonflat .intersection.white .stone-shadow {
-    fill: hsla(0, 0%, 24%, 0.38);
+    fill: none;
   }
 
   &.tenuki-board-nonflat .intersection.dead .stone-shadow {
-    fill: hsla(0, 0%, 24%, 0.38 / 2);
+    fill: none;
   }
 
   &.tenuki-board-nonflat .intersection.hovered.white .stone-shadow,

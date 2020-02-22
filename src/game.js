@@ -188,18 +188,30 @@ Game.prototype = {
     return this.currentState().moveNumber;
   },
 
-  labelAt: function(y, x, label) {
-    this.currentState().labelAt(y, x, label);
+  labelsAt: function(labels) { // array of x, y, label
+    for (let i = 0; i < labels.length; ++i ) {
+      let newState = this.currentState().labelAt(labels[i].x, labels[i].y, labels[i].label);
+      this._moves.push(newState);
+    }
     this.render();
     return true;
   },
 
-  playAt: function(y, x, { render = true } = {}) {
+  stonesAt: function(stones) { // array of x, y, color
+    for (let i = 0; i < stones.length; ++i ) {
+      let newState = this.currentState().playAt(stones[i].x, stones[i].y, stones[i].color, true);
+      this._moves.push(newState);
+    }
+    this.render();
+    return true;
+  },
+
+  playAt: function(y, x, { render = true } = {}, player = null) {
     if (this.isIllegalAt(y, x)) {
       return false;
     }
 
-    const currentPlayer = this.currentPlayer();
+    const currentPlayer = player ? player : this.currentPlayer();
 
     let newState = this.currentState().playAt(y, x, currentPlayer);
     const { koPoint } = newState;

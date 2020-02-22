@@ -2,7 +2,7 @@ import utils from "./utils";
 import Intersection from "./intersection";
 import Zobrist from "./zobrist";
 
-const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint }) {
+const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint, labelType, hidePlayedPoint }) {
   this.moveNumber = moveNumber;
   this.playedPoint = playedPoint;
   this.color = color;
@@ -16,6 +16,8 @@ const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassSto
   this.koPoint = koPoint;
   this.boardSize = boardSize;
   this.labelPoint = labelPoint;
+  this.labelType = labelType;
+  this.hidePlayedPoint = hidePlayedPoint;
   this._positionHash = Zobrist.hash(boardSize, intersections);
 
   Object.freeze(this);
@@ -23,7 +25,7 @@ const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassSto
 
 BoardState.prototype = {
   copyWithAttributes: function(attrs) {
-    const retrieveProperties = ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint }) => ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint });
+    const retrieveProperties = ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint, labelType, hidePlayedPoint }) => ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint, labelType, hidePlayedPoint });
     const existingAttrs = retrieveProperties(this);
     const newAttrs = retrieveProperties(Object.assign(existingAttrs, attrs));
 
@@ -106,7 +108,8 @@ BoardState.prototype = {
       capturedPositions: [],
       koPoint: null,
       boardSize: this.boardSize,
-      labelPoint: null
+      labelPoint: null,
+      labelType: null
     };
 
     stateInfo[color + "PassStones"] += 1;
@@ -133,14 +136,12 @@ BoardState.prototype = {
   labelAt: function(y, x, label) {
     let intersection = this.intersectionAt(y, x);
     let newPoints = this.intersections;
-    newPoints = this._updateIntersection(intersection, newPoints, this.playedColor, label);
-    newPoints['labelPoint'] = { y: y, x: x };
-    const newState = this._withNewPoints(newPoints);
-    console.log("state.labelAt(", y, x, label,"):", newState);
+    newPoints = this._updateIntersection(intersection, newPoints, intersection.value, label);
+    let newState = this.copyWithAttributes({ intersections: newPoints, labelPoint: { y: y, x: x }, labelType: label });
     return newState;
   },
 
-  playAt: function(y, x, playedColor) {
+  playAt: function(y, x, playedColor, hidePlayedPoint = false) {
     const capturedPositions = this._capturesFrom(y, x, playedColor);
     let playedPoint = this.intersectionAt(y, x);
     let newPoints = this.intersections;
@@ -168,7 +169,8 @@ BoardState.prototype = {
       whiteStonesCaptured: newTotalWhiteCaptured,
       capturedPositions: capturedPositions,
       boardSize: boardSize,
-      labelPoint: null
+      labelPoint: null,
+      hidePlayedPoint: hidePlayedPoint
     };
 
     const withPlayedPoint = new BoardState(moveInfo);
