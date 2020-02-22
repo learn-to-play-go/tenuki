@@ -262,10 +262,10 @@ const constructSVG = function(renderer, boardState, { hasCoordinates, smallerSto
       }));
 
       const pos = {
-        x: y * renderer.INTERSECTION_GAP_SIZE + 1.5 - 1,
-        y: x * renderer.INTERSECTION_GAP_SIZE + 1.5 - 2,
-        w: 8 - 1,
-        h: 8 - 1
+        x: y * renderer.INTERSECTION_GAP_SIZE + y - 0.5,
+        y: x * renderer.INTERSECTION_GAP_SIZE + x - 2,
+        w: renderer.INTERSECTION_GAP_SIZE / 4,
+        h: renderer.INTERSECTION_GAP_SIZE / 4
       };
 
       utils.appendElement(intersectionInnerContainer, utils.createSVGElement("polygon", {
