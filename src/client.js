@@ -81,6 +81,10 @@ Client.prototype = {
     return this._game.currentPlayer();
   },
 
+  labelAt: function(y, x, label) {
+    this._game.labelAt(y, x, label);
+  },
+
   receivePlay: function(y, x) {
     if (this._player === this.currentPlayer()) {
       return;
