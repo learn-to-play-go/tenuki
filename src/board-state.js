@@ -84,6 +84,11 @@ BoardState.prototype = {
     }
   },
 
+  setColor: function(color) {
+    this.color = color;
+    return true;
+  },
+
   yCoordinateFor: function(y) {
     return this.boardSize - y;
   },
