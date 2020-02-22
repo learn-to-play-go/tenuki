@@ -2,7 +2,7 @@ import utils from "./utils";
 import Intersection from "./intersection";
 import Zobrist from "./zobrist";
 
-const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize }) {
+const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint }) {
   this.moveNumber = moveNumber;
   this.playedPoint = playedPoint;
   this.color = color;
@@ -15,6 +15,7 @@ const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassSto
   this.capturedPositions = capturedPositions;
   this.koPoint = koPoint;
   this.boardSize = boardSize;
+  this.labelPoint = labelPoint;
   this._positionHash = Zobrist.hash(boardSize, intersections);
 
   Object.freeze(this);
@@ -22,7 +23,7 @@ const BoardState = function({ moveNumber, playedPoint, color, pass, blackPassSto
 
 BoardState.prototype = {
   copyWithAttributes: function(attrs) {
-    const retrieveProperties = ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize }) => ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize });
+    const retrieveProperties = ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint }) => ({ moveNumber, playedPoint, color, pass, blackPassStones, whitePassStones, intersections, blackStonesCaptured, whiteStonesCaptured, capturedPositions, koPoint, boardSize, labelPoint });
     const existingAttrs = retrieveProperties(this);
     const newAttrs = retrieveProperties(Object.assign(existingAttrs, attrs));
 
@@ -104,7 +105,8 @@ BoardState.prototype = {
       whiteStonesCaptured: this.whiteStonesCaptured,
       capturedPositions: [],
       koPoint: null,
-      boardSize: this.boardSize
+      boardSize: this.boardSize,
+      labelPoint: null
     };
 
     stateInfo[color + "PassStones"] += 1;
@@ -132,6 +134,7 @@ BoardState.prototype = {
     let intersection = this.intersectionAt(y, x);
     let newPoints = this.intersections;
     newPoints = this._updateIntersection(intersection, newPoints, this.playedColor, label);
+    newPoints['labelPoint'] = { y: y, x: x };
     return this._withNewPoints(newPoints);
   },
 
@@ -162,7 +165,8 @@ BoardState.prototype = {
       blackStonesCaptured: newTotalBlackCaptured,
       whiteStonesCaptured: newTotalWhiteCaptured,
       capturedPositions: capturedPositions,
-      boardSize: boardSize
+      boardSize: boardSize,
+      labelPoint: null
     };
 
     const withPlayedPoint = new BoardState(moveInfo);

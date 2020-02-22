@@ -102,7 +102,8 @@ $board-darker-color: hsl(41, 36%, 40%);
   &.tenuki-board .intersection.territory-black .territory-marker,
   &.tenuki-board .intersection.territory-white .territory-marker,
   &.tenuki-board .intersection.ko .ko-marker,
-  &.tenuki-board .intersection.played .marker {
+  &.tenuki-board .intersection.played .marker,
+  &.tenuki-board .intersection.label {
     visibility: visible;
   }
 
