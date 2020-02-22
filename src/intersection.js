@@ -17,7 +17,7 @@ Intersection.prototype = {
   },
 
   hasLabel: function() {
-    return this.label !== "empty";
+    return this.label && (this.label !== "empty");
   },
 
   getLabel: function() {

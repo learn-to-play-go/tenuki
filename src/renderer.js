@@ -440,6 +440,8 @@ Renderer.prototype = {
 
     this.updateMarkerPoints({ playedPoint: playedPoint, koPoint: boardState.koPoint });
 
+    this.renderLabels(boardState.intersections);
+
     if (this._options["fuzzyStonePlacement"] && playedPoint) {
       const verticalShiftClasses = [
         "v-shift-up",
@@ -509,6 +511,12 @@ Renderer.prototype = {
   },
 
   renderStonesPlayed: function(intersections) {
+    intersections.forEach(intersection => {
+      this.renderIntersection(intersection);
+    });
+  },
+
+  renderLabels: function(intersections) {
     intersections.forEach(intersection => {
       this.renderIntersection(intersection);
     });
