@@ -87,8 +87,8 @@ $board-darker-color: hsl(41, 36%, 40%);
     stroke: black;
   }
 
-  &.tenuki-board .intersection.ko .triangle {
-    stroke: black;
+  &.tenuki-board .intersection.ko .circle {
+    fill: black;
   }
 
   &.tenuki-board .intersection.territory-black .territory-marker {

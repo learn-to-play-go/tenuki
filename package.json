@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --require source-map-support/register --require test/helpers.js",
-    "build": "make clean && make",
-    "css": "cat ./scss/*.scss | node-sass --output-style expanded > lib/tenuki.css"
+    "css": "cat ./scss/*.scss | node-sass --output-style expanded > lib/tenuki.css",
+    "build": "make clean && make && npm run css"
   },
   "repository": {
     "type": "git",
