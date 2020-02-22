@@ -85,8 +85,7 @@ BoardState.prototype = {
   },
 
   setColor: function(color) {
-    this.color = color;
-    return true;
+    return this.copyWithAttributes({ color: color });
   },
 
   yCoordinateFor: function(y) {

@@ -200,9 +200,9 @@ Game.prototype = {
   stonesAt: function(stones) { // array of x, y, color
     for (let i = 0; i < stones.length; ++i ) {
       let newState = this.currentState().playAt(stones[i].x, stones[i].y, stones[i].color, true);
-      newState.setColor("black");
       this._moves.push(newState);
     }
+    this._moves.push(this.currentState().setColor("black"));
     this.render();
     return true;
   },
