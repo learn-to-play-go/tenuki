@@ -500,8 +500,8 @@
   stroke: black;
 }
 
-.tenuki-svg-renderer.tenuki-board .intersection.ko .triangle {
-  stroke: black;
+.tenuki-svg-renderer.tenuki-board .intersection.ko .circle {
+  fill: black;
 }
 
 .tenuki-svg-renderer.tenuki-board .intersection.territory-black .territory-marker {

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --require source-map-support/register --require test/helpers.js",
     "css": "cat ./scss/*.scss | node-sass --output-style expanded > lib/tenuki.css",
-    "build": "make clean && make && npm run css"
+    "build": "make clean && make"
   },
   "repository": {
     "type": "git",
