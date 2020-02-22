@@ -188,21 +188,22 @@ Game.prototype = {
     return this.currentState().moveNumber;
   },
 
-  labelsAt: function(labels) { // array of x, y, label
+  labelsAt: function(labels, nextColor = "black") { // array of x, y, label
     for (let i = 0; i < labels.length; ++i ) {
       let newState = this.currentState().labelAt(labels[i].x, labels[i].y, labels[i].label);
       this._moves.push(newState);
     }
+    this._moves.push(this.currentState().setColor(nextColor));
     this.render();
     return true;
   },
 
-  stonesAt: function(stones) { // array of x, y, color
+  stonesAt: function(stones, nextColor = "black") { // array of x, y, color
     for (let i = 0; i < stones.length; ++i ) {
       let newState = this.currentState().playAt(stones[i].x, stones[i].y, stones[i].color, true);
       this._moves.push(newState);
     }
-    this._moves.push(this.currentState().setColor("black"));
+    this._moves.push(this.currentState().setColor(nextColor));
     this.render();
     return true;
   },
