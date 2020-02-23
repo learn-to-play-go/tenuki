@@ -285,8 +285,8 @@ const constructSVG = function(renderer, boardState, { hasCoordinates, smallerSto
         utils.appendElement(intersectionInnerContainer, utils.createSVGElement("text", {
           attributes: {
             class: letters[i] + "-label",
-            y: y * (renderer.INTERSECTION_GAP_SIZE + 1) + 4,
-            x: x * (renderer.INTERSECTION_GAP_SIZE + 1) - 5,
+            y: y * (renderer.INTERSECTION_GAP_SIZE + 1) + 5,
+            x: x * (renderer.INTERSECTION_GAP_SIZE + 1) - 7,
           },
           text: letters[i].toUpperCase()
         }));
